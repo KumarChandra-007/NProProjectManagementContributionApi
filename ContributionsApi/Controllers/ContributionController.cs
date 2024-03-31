@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContributionsApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("contributionapi")]
     [ApiController]
     public class ContributionController : ControllerBase
     {

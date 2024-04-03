@@ -18,11 +18,13 @@ namespace ContributionsApi.Controllers
         public async Task<IActionResult> GetContributionByIdAsync(int contributionId)
         {
             var contribution = await _contributionsService.GetContributionByIdAsync(contributionId);
-            if (contribution == null)
-            {
-                return BadRequest("Error while reading contribution");
-            }
+            return Ok(contribution);
+        }
 
+        [HttpGet("GetContributionByTaskId/{taskId}")]
+        public async Task<IActionResult> GetContributionByTaskIdAsync(int taskId)
+        {
+            var contribution = await _contributionsService.GetContributionByIdAsync(taskId);
             return Ok(contribution);
         }
 
@@ -30,11 +32,6 @@ namespace ContributionsApi.Controllers
         public async Task<IActionResult> GetContributionsAsync()
         {
             var contributions = await _contributionsService.GetContributionsAsync();
-            if (contributions== null)
-            {
-                return BadRequest("Error while reading contributions");
-            }
-
             return Ok(contributions);
         }
 
@@ -42,11 +39,6 @@ namespace ContributionsApi.Controllers
         public async Task<IActionResult> PostContributionAsync([FromBody] Contributions model)
         {
             var contribution= await _contributionsService.PostContributionAsync(model);
-            if(contribution==null)
-            {
-                return BadRequest("Error while saving contribution");
-            }
-
             return Ok(contribution);
         }
 
@@ -54,11 +46,6 @@ namespace ContributionsApi.Controllers
         public async Task<IActionResult> PutContributionAsync([FromBody] Contributions model)
         {
             var contribution = await _contributionsService.PutContributionAsync(model);
-            if (contribution == null)
-            {
-                return BadRequest("Error while updating contribution");
-            }
-
             return Ok(contribution);
         }
 
@@ -67,11 +54,6 @@ namespace ContributionsApi.Controllers
         public async Task<IActionResult> DeleteContributionByIdAsync(int contributionId)
         {
             var response = await _contributionsService.DeleteContributionAsync(contributionId);
-            if (!response)
-            {
-                return BadRequest("Failed to delete contribution");
-            }
-
             return Ok("Successfully deleted the contribution");
         }
     }

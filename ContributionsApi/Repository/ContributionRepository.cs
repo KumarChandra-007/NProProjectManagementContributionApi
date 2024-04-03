@@ -27,11 +27,10 @@ namespace ContributionsApi.Repository
                     return company.ToList();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var s = ex.Message;
+                throw;
             }
-            return null;
         }
         public async Task<Contributions> GetContributionByIdAsync(int contributionId)
         {
@@ -45,11 +44,28 @@ namespace ContributionsApi.Repository
                     return contribution;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var s = ex.Message;
+                throw;
             }
-            return null;
+        }
+
+        public async Task<List<Contributions>> GetContributionByTaskIdAsync(int taskId)
+        {
+            var query = "SELECT * FROM Contributions WHERE taskId = @taskId";
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var contribution = await connection.QueryAsync<Contributions>(query, new { taskId });
+
+                    return contribution.ToList();
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<Contributions> InsertContributionAsync(Contributions contribution)

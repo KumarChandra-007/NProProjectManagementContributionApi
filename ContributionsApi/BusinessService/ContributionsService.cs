@@ -1,7 +1,6 @@
 ﻿using ContributionsApi.BusinessService.Interface;
 using ContributionsApi.Models;
 using ContributionsApi.Repository.Interface;
-using System.Reflection;
 
 namespace ContributionsApi.BusinessService
 {
@@ -15,6 +14,12 @@ namespace ContributionsApi.BusinessService
 
 
         public async Task<Contributions> GetContributionByIdAsync(int contributionId) {
+            var contribution = await _repository.GetContributionByIdAsync(contributionId);
+            return contribution;
+        }
+
+        public async Task<Contributions> GetContributionByTaskIdAsync(int contributionId)
+        {
             var contribution = await _repository.GetContributionByIdAsync(contributionId);
             return contribution;
         }

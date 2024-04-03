@@ -1,6 +1,7 @@
 ﻿using ContributionsApi.BusinessService.Interface;
 using ContributionsApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ContributionsApi.Controllers
 {
@@ -18,6 +19,18 @@ namespace ContributionsApi.Controllers
         public async Task<IActionResult> GetContributionByIdAsync(int contributionId)
         {
             var contribution = await _contributionsService.GetContributionByIdAsync(contributionId);
+            if (contribution == null)
+            {
+                return BadRequest("Error while reading contribution");
+            }
+
+            return Ok(contribution);
+        }
+
+        [HttpGet("GetContributionByTaskId/{taskId}")]
+        public async Task<IActionResult> GetContributionByTaskIdAsync(int taskId)
+        {
+            var contribution = await _contributionsService.GetContributionByTaskIdAsync(taskId);
             if (contribution == null)
             {
                 return BadRequest("Error while reading contribution");

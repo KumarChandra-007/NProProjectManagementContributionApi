@@ -23,15 +23,13 @@ namespace ContributionsApi.Repository
                 using (var connection = _context.CreateConnection())
                 {
                     var company = await connection.QueryAsync<Contributions>(query);
-
                     return company.ToList();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var s = ex.Message;
+                throw;
             }
-            return null;
         }
         public async Task<Contributions> GetContributionByIdAsync(int contributionId)
         {
@@ -41,15 +39,31 @@ namespace ContributionsApi.Repository
                 using (var connection = _context.CreateConnection())
                 {
                     var contribution = await connection.QuerySingleOrDefaultAsync<Contributions>(query, new { contributionId });
-
                     return contribution;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var s = ex.Message;
+                throw;
             }
-            return null;
+        }
+
+        public async Task<List<Contributions>> GetContributionByTaskIdAsync(int taskId)
+        {
+            var query = "SELECT * FROM Contributions WHERE TaskID = @TaskId";
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var contribution = await connection.QueryAsync<Contributions>(query, new { taskId });
+
+                    return contribution.ToList();
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<Contributions> InsertContributionAsync(Contributions contribution)

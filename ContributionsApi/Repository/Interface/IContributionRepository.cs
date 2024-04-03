@@ -6,6 +6,7 @@ namespace ContributionsApi.Repository.Interface
     {
         Task<List<Contributions>> GetContributionsAsync();
         Task<Contributions> GetContributionByIdAsync(int id);
+        Task<List<Contributions>> GetContributionByTaskIdAsync(int taskId);
         Task<Contributions> InsertContributionAsync(Contributions contributions);
         Task<Contributions> UpdateContributionAsync(Contributions contributions);
         Task<bool> DeleteContributionAsync(int contributionId);
